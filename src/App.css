@@ -77,3 +77,36 @@ body {
   margin-right: 5px;
   margin-bottom: 5px;
 }
+
+.article-details {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  grid-template-rows: auto auto;
+  gap: 10px;
+  justify-content: center;
+  max-height: 300px;
+}
+
+.article-image {
+  grid-column: 1/2;
+  grid-row: 1/3;
+  border-radius: 20px;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  justify-content: center;
+}
+
+.article-details h4 {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  text-align: left;
+  align-self: end;
+}
+
+.article-details h5 {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  text-align: left;
+  justify-content: space-evenly;
+}

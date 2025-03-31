@@ -1,8 +1,14 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 function ArticleCard({article}) {
+    const navigate = useNavigate();
+
+    function handleClick() {
+        navigate(`/articles/${article.article_id}`, { state: {article}});
+    };
+
     return (
-        <article className="article-card">
+        <article className="article-card" onClick={handleClick}>
             <Link to="/topic/:slug" className="topic-button">{article.topic}</Link>
             <h3>{article.title}</h3>
             <Link to="/users/:username" className="author-button">{article.author}</Link>
@@ -11,6 +17,7 @@ function ArticleCard({article}) {
                 <button className='comment-button'>{article.comment_count} comments</button>
             </section>
         </article>
+
     )
 }
 
