@@ -82,6 +82,8 @@ body {
   border-radius: 5px;
 }
 
+
+
 .comment-button {
   margin-bottom: 5px;
   background: white;
@@ -113,8 +115,27 @@ body {
   display: inline-block;
 }
 
+.comment-intro {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.add-comment-button {
+  background: rgb(157, 157, 255);
+  color: white;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 11px;
+  align-self: center;
+}
+
 .comment-header {
   text-align: left;
+  align-self: center;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
 .comment-card {

@@ -1,18 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router";
 import { getCommentsByArticle } from "../api";
 import CommentCard from "./CommentCard";
 import useApiRequest from "../hooks/useApiRequest";
 import VoteHandler from "./VoteHandler";
+import NewCommentForm from "./NewCommentForm";
 
 function SingleArticlePage() {
     const location = useLocation();
     const { article } = location.state || {};
+    const [newComment, setNewComment] = useState(false);
 
     const {data: comments, isLoading, isError} = useApiRequest(getCommentsByArticle, 'comments', article.article_id);
 
     if(isLoading) return <p>Loading article...</p>
     if(isError) return <p>Oh no! Something went wrong!</p>
+
+    function handleCommentButton() {
+        setNewComment(true);
+    }
 
     return (
         <>
@@ -26,8 +32,12 @@ function SingleArticlePage() {
         <section className="article-interactions">
             <VoteHandler article={article}/>
         </section>
-        <section className="comments-on-article">
-            <h4 className="comment-header">Comments: {article.comment_count}</h4>
+        <section>
+            <header className="comment-intro">
+                <h4 className="comment-header">Comments: {article.comment_count}</h4>
+                <button className="add-comment-button" onClick={handleCommentButton}>Add Comment</button>
+            </header>
+            {newComment ? <NewCommentForm setNewComment={setNewComment} article={article}/> : null}
             {comments.map((comment) => {
                 return <CommentCard key={comment.comment_id} comment={comment}/>
             })}

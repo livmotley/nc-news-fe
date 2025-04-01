@@ -17,7 +17,7 @@ function VoteHandler({article}) {
 }
 
     return (
-        <section class="vote-section">
+        <section className="vote-section">
             <p className="vote-count">{article.votes + optimisticVote} votes</p>
             <button className="upvote-button" onClick={()=> handleClick(1)}>Upvote</button>
             <button className="downvote-button" onClick={()=> handleClick(-1)}>Downvote</button>
