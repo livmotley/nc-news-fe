@@ -16,6 +16,7 @@ function App() {
       <Route path="/" element={<WelcomePage/>} />
       <Route path="/articles" element={<Articles/>} />
       <Route path="/articles/:article_id" element={<SingleArticlePage />} />
+      <Route path="/articles/:article_id/comments" element={<SingleArticlePage />} />
     </Routes>
     <Footer />
     </>
