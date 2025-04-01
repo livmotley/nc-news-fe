@@ -169,6 +169,13 @@ body {
   margin-top: 0px;
 }
 
+.delete-button {
+  width: 5%;
+  align-self: center;
+  margin-bottom: 8px;
+  margin-left: 10px;
+}
+
 .comment-vote-button {
   background: rgb(214, 235, 255);
   margin-left: 10px;
@@ -244,3 +251,4 @@ body {
   color: white;
   font-size: 12px;
 }
+

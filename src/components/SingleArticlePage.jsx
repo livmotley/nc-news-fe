@@ -1,6 +1,5 @@
-import { useState } from "react";
-// import { useLocation } from "react-router";
-import { getArticleById, getCommentsByArticle } from "../api";
+import { useEffect, useState } from "react";
+import { deleteComment, getArticleById, getCommentsByArticle } from "../api";
 import CommentCard from "./CommentCard";
 import useApiRequest from "../hooks/useApiRequest";
 import VoteHandler from "./VoteHandler";
@@ -8,21 +7,33 @@ import NewCommentForm from "./NewCommentForm";
 import { useParams } from "react-router";
 
 function SingleArticlePage() {
-    // const location = useLocation();
     const { article_id } = useParams();
     const [newComment, setNewComment] = useState(false);
     const [hasPosted, setHasPosted] = useState(false);
+    const [localComments, setLocalComments] = useState([]);
 
     const {data: article, isLoading: articleLoading, isError: articleError} = useApiRequest(getArticleById, 'article', article_id)
-
     const {data: comments, isLoading: commentLoading, isError: commentError} = useApiRequest(getCommentsByArticle, 'comments', article_id);
 
-    if(articleLoading || commentLoading) return <p>Loading article...</p>
-    if(articleError || commentError) return <p>Oh no! Something went wrong!</p>
+    useEffect(() => {
+        if(comments) setLocalComments(comments)
+    }, [comments])
 
     function handleCommentButton() {
         setNewComment(true);
     }
+
+    function handleDelete(commentId) {
+        const updatedComments = localComments.filter(comment => comment.comment_id !== commentId)
+        setLocalComments(updatedComments);
+        deleteComment(commentId)
+        .catch(() => {
+            setLocalComments(comments);
+        })
+    }
+    if(articleLoading || commentLoading) return <p>Loading article...</p>
+    if(articleError || commentError) return <p>Oh no! Something went wrong!</p>
+
 
     return (
         <>
@@ -43,8 +54,8 @@ function SingleArticlePage() {
             </header>
             {newComment ? <NewCommentForm setNewComment={setNewComment} setHasPosted={setHasPosted} article={article}/> : null}
             {hasPosted ? <p>Comment Posted!</p> : null}
-            {comments.map((comment) => {
-                return <CommentCard key={comment.comment_id} comment={comment}/>
+            {localComments.map((comment) => {
+                return <CommentCard key={comment.comment_id} comment={comment} handleDelete={handleDelete}/>
             })}
         </section>
         </>

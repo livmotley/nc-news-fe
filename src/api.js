@@ -24,3 +24,7 @@ export function updateArticleVotes(id, vote) {
 export function addNewComment(id, request) {
     return ncNewsAPI.post(`/articles/${id}/comments`, request)
 }
+
+export function deleteComment(id) {
+    return ncNewsAPI.delete(`/comments/${id}`)
+}
