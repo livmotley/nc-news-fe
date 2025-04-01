@@ -153,3 +153,35 @@ body {
   border-radius: 5px;
   border: 2px solid rgb(184, 211, 236);
 }
+
+.vote-count {
+  display: inline-block;
+  padding: 3px;
+  margin-top: 5px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  background: white;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.upvote-button {
+  margin-right: 5px;
+  background: rgb(169, 255, 169);
+  border: 2.5px solid rgb(99, 153, 99);
+  border-radius: 4px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  font-size: 80%;
+  font-weight: 400;
+}
+
+.downvote-button {
+  background: rgb(253, 138, 159);
+  border: 2.5px solid rgb(189, 41, 68);
+  border-radius: 4px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  font-size: 80%;
+  font-weight: 400
+}

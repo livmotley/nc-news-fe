@@ -1,29 +1,10 @@
 import { Link } from "react-router";
 import { getAllArticles } from "../api";
 import ArticleCard from "./ArticleCard";
-import { useState, useEffect } from "react";
+import useApiRequest from "../hooks/useApiRequest";
 
 function Articles() {
-    const [articles, setArticles] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [isError, setIsError] = useState(false);
-
-    useEffect(() => {
-        setIsLoading(true);
-        setIsError(false);
-        getAllArticles()
-        .then((response) => {
-            setArticles(response.data.articles);
-            setIsLoading(false);
-        })
-        .catch(() => {
-            setIsError(true);
-        })
-        .finally(() => {
-            setIsLoading(false);
-        })
-    }, [])
-
+    const { data: articles, isLoading, isError } = useApiRequest(getAllArticles, 'articles');
     if(isLoading) return <p>Loading...</p>
     if(isError) return <p>Oh no! Something went wrong!</p>
 
