@@ -1,20 +1,24 @@
 import { useState } from "react";
-import { useLocation } from "react-router";
-import { getCommentsByArticle } from "../api";
+// import { useLocation } from "react-router";
+import { getArticleById, getCommentsByArticle } from "../api";
 import CommentCard from "./CommentCard";
 import useApiRequest from "../hooks/useApiRequest";
 import VoteHandler from "./VoteHandler";
 import NewCommentForm from "./NewCommentForm";
+import { useParams } from "react-router";
 
 function SingleArticlePage() {
-    const location = useLocation();
-    const { article } = location.state || {};
+    // const location = useLocation();
+    const { article_id } = useParams();
     const [newComment, setNewComment] = useState(false);
+    const [hasPosted, setHasPosted] = useState(false);
 
-    const {data: comments, isLoading, isError} = useApiRequest(getCommentsByArticle, 'comments', article.article_id);
+    const {data: article, isLoading: articleLoading, isError: articleError} = useApiRequest(getArticleById, 'article', article_id)
 
-    if(isLoading) return <p>Loading article...</p>
-    if(isError) return <p>Oh no! Something went wrong!</p>
+    const {data: comments, isLoading: commentLoading, isError: commentError} = useApiRequest(getCommentsByArticle, 'comments', article_id);
+
+    if(articleLoading || commentLoading) return <p>Loading article...</p>
+    if(articleError || commentError) return <p>Oh no! Something went wrong!</p>
 
     function handleCommentButton() {
         setNewComment(true);
@@ -37,7 +41,8 @@ function SingleArticlePage() {
                 <h4 className="comment-header">Comments: {article.comment_count}</h4>
                 <button className="add-comment-button" onClick={handleCommentButton}>Add Comment</button>
             </header>
-            {newComment ? <NewCommentForm setNewComment={setNewComment} article={article}/> : null}
+            {newComment ? <NewCommentForm setNewComment={setNewComment} setHasPosted={setHasPosted} article={article}/> : null}
+            {hasPosted ? <p>Comment Posted!</p> : null}
             {comments.map((comment) => {
                 return <CommentCard key={comment.comment_id} comment={comment}/>
             })}
