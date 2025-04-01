@@ -16,3 +16,7 @@ export function getArticleById(id) {
 export function getCommentsByArticle(id) {
     return ncNewsAPI.get(`/articles/${id}/comments`)
 }
+
+export function updateArticleVotes(id, vote) {
+    return ncNewsAPI.patch(`/articles/${id}`, {inc_votes: vote})
+}
