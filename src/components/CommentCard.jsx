@@ -1,11 +1,13 @@
 function CommentCard({comment}) {
 
     return (
-        <>
-        <p>{comment.body}</p>
-        <p>{new Date(comment.created_at).toLocaleDateString()}</p>
-        <button>{comment.votes} votes</button>
-        </>
+        <section className="comment-card">
+        <p className="comment-body">{comment.body}</p>
+        <div className="comment-details">
+            <p>{new Date(comment.created_at).toLocaleDateString()}</p>
+            <button className="comment-vote-button">{comment.votes} votes</button>
+        </div>
+        </section>
     )
 
 }

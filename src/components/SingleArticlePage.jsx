@@ -19,21 +19,17 @@ function SingleArticlePage() {
         <>
         <header>
             <h3 className="article-header">{article.title}</h3>
+            <h4>By <span className="author-button">{article.author}</span> | {new Date(article.created_at).toLocaleDateString()}</h4>
+            <h5 className="article-topic-button">{article.topic}</h5>
         </header>
-        <section className="article-details">
             <img src={article.article_img_url} alt={article.title} className="article-image"/>
-            <h4>{article.author}</h4>
-            <div className="article-meta">
-                <h5>{article.topic}</h5>
-                <h5>{new Date(article.created_at).toLocaleDateString()}</h5>
-            </div>
-        </section>
         {article.body ? <p>{article.body}</p> : <p>Looks like this article is empty!</p>}
         <section className="article-interactions">
             <button className="votes-button">{article.votes} votes</button>
             <button className="comment-button">{article.comment_count} comments</button>
         </section>
         <section className="comments-on-article">
+            <h4 className="comment-header">Comments</h4>
             {comments.map((comment) => {
                 return <CommentCard key={comment.comment_id} comment={comment}/>
             })}
