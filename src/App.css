@@ -115,6 +115,10 @@ body {
   display: inline-block;
 }
 
+.article-body {
+  text-align: left;
+}
+
 .comment-intro {
   display: flex;
   justify-content: space-between;

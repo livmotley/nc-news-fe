@@ -3,15 +3,21 @@ import { updateArticleVotes } from "../api";
 
 function VoteHandler({article}) {
     const [optimisticVote, setOptimisticVote] = useState(0);
+    const [hasVoted, setHasVoted] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(false);
 
     function handleClick(vote) {
         updateArticleVotes(article.article_id, vote)
         .catch(() => {
             setOptimisticVote((currOptimisticVote) => {
+                setHasVoted(false);
+                setIsDisabled(false);
                 return currOptimisticVote -1
             })
         })
         setOptimisticVote((currOptimisticVote) => {
+            setHasVoted(true);
+            setIsDisabled(true);
             return currOptimisticVote + vote;
     })
 }
@@ -19,8 +25,9 @@ function VoteHandler({article}) {
     return (
         <section className="vote-section">
             <p className="vote-count">{article.votes + optimisticVote} votes</p>
-            <button className="upvote-button" onClick={()=> handleClick(1)}>Upvote</button>
-            <button className="downvote-button" onClick={()=> handleClick(-1)}>Downvote</button>
+            <button disabled={isDisabled} className="upvote-button" onClick={()=> handleClick(1)}>Upvote</button>
+            <button disabled={isDisabled} className="downvote-button" onClick={()=> handleClick(-1)}>Downvote</button>
+            {hasVoted ? <p>Vote added.</p> : null}
         </section>
     )
 }

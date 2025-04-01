@@ -28,7 +28,7 @@ function SingleArticlePage() {
             <h5 className="article-topic-button">{article.topic}</h5>
         </header>
             <img src={article.article_img_url} alt={article.title} className="article-image"/>
-            {article.body ? <p>{article.body}</p> : <p>Looks like this article is empty!</p>}
+            {article.body ? <p className='article-body'>{article.body}</p> : <p>Looks like this article is empty!</p>}
         <section className="article-interactions">
             <VoteHandler article={article}/>
         </section>

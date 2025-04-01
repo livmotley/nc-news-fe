@@ -21,6 +21,6 @@ export function updateArticleVotes(id, vote) {
     return ncNewsAPI.patch(`/articles/${id}`, {inc_votes: vote})
 }
 
-export function addNewComment(id, body) {
-    return ncNewsAPI.post(`/articles/${id}/comments`, {username: "butter_bridge", body})
+export function addNewComment(id, request) {
+    return ncNewsAPI.post(`/articles/${id}/comments`, request)
 }
