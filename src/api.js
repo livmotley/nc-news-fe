@@ -5,11 +5,19 @@ const ncNewsAPI = axios.create({
     timeout: 1000
 });
 
-export function getAllArticles(topic) {
+export function getAllArticles(topic, sortOption, ascOrder) {
+    const params = new URLSearchParams();
+
     if(topic) {
-        return ncNewsAPI.get(`articles?topic=${topic}`)
+        params.set('topic', topic);
     }
-    return ncNewsAPI.get('/articles')
+    if(sortOption) {
+        params.set('sort_by', sortOption);
+    }
+    if(ascOrder) {
+        params.set('order', 'asc');
+    }
+    return ncNewsAPI.get(`/articles?${params.toString()}`)
 }
 
 export function getArticleById(id) {
