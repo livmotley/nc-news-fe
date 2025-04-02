@@ -1,20 +1,25 @@
-import { Link, useSearchParams } from "react-router";
-import { getAllArticles } from "../api";
-import ArticleCard from "./ArticleCard";
+import { useSearchParams } from "react-router";
 import useApiRequest from "../hooks/useApiRequest";
+import { getAllArticles } from "../api";
 
-function Articles() {
+function TopicsByArticle() {
     const [searchParams] = useSearchParams();
-    const selectedTopic = searchParams.get('topic');
+    const selectedTopic = searchParams.get("topic");
+    console.log(searchParams);
 
-    const { data: articles, isLoading, isError } = useApiRequest(getAllArticles, 'articles', selectedTopic || null);
+    const {data: articles, isLoading, isError} = useApiRequest(getAllArticles, 'articles', selectedTopic);
+    console.log(articles);
+
+    const titleCaseTopic = selectedTopic.split(' ').map(function (word) {
+        return word.charAt(0).toUpperCase().concat(word.substr(1))
+    }).join(' ');
 
     if(isLoading) return <p>Loading...</p>
     if(isError) return <p>Oh no! Something went wrong!</p>
 
     return (
-        <main className="article-list">
-            <h2>News Feed</h2>
+        <main className="topic-list">
+            <h2>{titleCaseTopic} Articles</h2>
             <button className="buttons-and-links">Sort & Filter</button>
             <Link to='/articles/new-article' className="buttons-and-links">Post Article</Link>
             <section className="article-gallery">
@@ -25,7 +30,6 @@ function Articles() {
         </main>
         
     )
-
 }
 
-export default Articles;
+export default TopicsByArticle;

@@ -4,7 +4,7 @@ import CommentCard from "./CommentCard";
 import useApiRequest from "../hooks/useApiRequest";
 import VoteHandler from "./VoteHandler";
 import NewCommentForm from "./NewCommentForm";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import PopUp from "./PopUpBox";
 import Popup from "reactjs-popup";
 
@@ -45,7 +45,7 @@ function SingleArticlePage() {
         <header>
             <h3 className="article-header">{article.title}</h3>
             <h4>By <span className="author-button">{article.author}</span> | {new Date(article.created_at).toLocaleDateString()}</h4>
-            <h5 className="article-topic-button">{article.topic}</h5>
+            <Link to={`articles?topic=${article.topic}`}><h5 className="article-topic-button">{article.topic}</h5></Link>
         </header>
             <img src={article.article_img_url} alt={article.title} className="article-image"/>
             {article.body ? <p className='article-body'>{article.body}</p> : <p>Looks like this article is empty!</p>}
