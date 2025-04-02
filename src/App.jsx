@@ -7,7 +7,6 @@ import WelcomePage from './components/WelcomePage.jsx';
 import NavBar from './components/NavBar.jsx';
 import SingleArticlePage from './components/SingleArticlePage.jsx';
 import Topics from './components/Topics.jsx';
-import TopicsByArticle from './components/TopicsByArticle.jsx';
 
 function App() {
   return (
