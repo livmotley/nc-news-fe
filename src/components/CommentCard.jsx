@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { deleteComment } from '../api';
 import deleteIcon from '../assets/delete-icon.png';
+import PopUp from './PopUpBox';
 
 function CommentCard({comment, handleDelete}) {
+    const [open, setOpen] = useState(false);
+    const [selectedYes, setSelectedYes] = useState(false);
 
     return (
         <section className="comment-card">
@@ -10,9 +12,15 @@ function CommentCard({comment, handleDelete}) {
         <div className="comment-details">
             <p>{new Date(comment.created_at).toLocaleDateString()}</p>
             <button className="comment-vote-button">{comment.votes} votes</button>
-            {comment.author === 'grumpy19' ? <img className="delete-button" src={deleteIcon} alt="delete button icon" onClick={() => {
-                handleDelete(comment.comment_id)}}/> : null}
+            {comment.author === 'grumpy19' ? 
+                <img 
+                    className="delete-button" 
+                    src={deleteIcon} 
+                    alt="delete button icon" 
+                    onClick={() => setOpen(true)}/>
+            : null}
         </div>
+            <PopUp open={open} setOpen={setOpen} setSelectedYes={setSelectedYes} handleYes={() => handleDelete(comment.comment_id)}/>
         </section>
     )
 

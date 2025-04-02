@@ -5,12 +5,15 @@ import useApiRequest from "../hooks/useApiRequest";
 import VoteHandler from "./VoteHandler";
 import NewCommentForm from "./NewCommentForm";
 import { useParams } from "react-router";
+import PopUp from "./PopUpBox";
+import Popup from "reactjs-popup";
 
 function SingleArticlePage() {
     const { article_id } = useParams();
     const [newComment, setNewComment] = useState(false);
     const [hasPosted, setHasPosted] = useState(false);
     const [localComments, setLocalComments] = useState([]);
+    const [deleteConfirmation, setDeleteConfirmation] = useState(false);
 
     const {data: article, isLoading: articleLoading, isError: articleError} = useApiRequest(getArticleById, 'article', article_id)
     const {data: comments, isLoading: commentLoading, isError: commentError} = useApiRequest(getCommentsByArticle, 'comments', article_id);
@@ -26,9 +29,11 @@ function SingleArticlePage() {
     function handleDelete(commentId) {
         const updatedComments = localComments.filter(comment => comment.comment_id !== commentId)
         setLocalComments(updatedComments);
+        setDeleteConfirmation(true);
         deleteComment(commentId)
         .catch(() => {
             setLocalComments(comments);
+            setDeleteConfirmation(false);
         })
     }
     if(articleLoading || commentLoading) return <p>Loading article...</p>
@@ -52,6 +57,12 @@ function SingleArticlePage() {
                 <h4 className="comment-header">Comments: {article.comment_count}</h4>
                 <button className="add-comment-button" onClick={handleCommentButton}>Add Comment</button>
             </header>
+            {deleteConfirmation ? <Popup open={deleteConfirmation} closeOnDocumentClick={false} onClose={() => setDeleteConfirmation(false)}>
+                <div className="modal-message">
+                    <button className="close" onClick={() => setDeleteConfirmation(false)}>&times;</button>
+                    <p>Comment Deleted.</p>
+                </div>
+            </Popup> : null}
             {newComment ? <NewCommentForm setNewComment={setNewComment} setHasPosted={setHasPosted} article={article}/> : null}
             {hasPosted ? <p>Comment Posted!</p> : null}
             {localComments.map((comment) => {
