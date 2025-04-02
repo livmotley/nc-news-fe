@@ -4,7 +4,7 @@ import ArticleCard from "./ArticleCard";
 import useApiRequest from "../hooks/useApiRequest";
 import SortByButton from "./SortByButton";
 import ToggleSwitch from "./ToggleSwitch";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 function Articles() {
     const [ascOrder, setAscOrder] = useState('desc');
@@ -15,7 +15,12 @@ function Articles() {
     const { data: articles, isLoading, isError } = useApiRequest(getAllArticles, 'articles', selectedTopic || null, selectedSortOption || null, ascOrder === 'asc' ? 'asc' : 'desc');
 
     if(isLoading) return <p>Loading...</p>
-    if(isError) return <p>Oh no! Something went wrong!</p>
+    if(isError) return (
+        <>
+            <p>Oh no! Something went wrong!</p>
+            <p>There may be typos in your URL or the article/topic you're looking for doesn't exist.</p>
+        </>
+    )
 
     return (
         <main className="article-list">

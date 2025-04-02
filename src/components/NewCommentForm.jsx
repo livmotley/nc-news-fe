@@ -35,7 +35,8 @@ function NewCommentForm({setHasPosted, setNewComment, article}) {
                 placeholder="Write your comment here..." 
                 name="body" id="new-comment" 
                 type="text" onChange={handleCommentChange} 
-                value={commentInput.body}/>
+                value={commentInput.body}
+                required/>
             <button className="form-button" type="submit">Post</button>
         </form>
     )
