@@ -5,7 +5,10 @@ const ncNewsAPI = axios.create({
     timeout: 1000
 });
 
-export function getAllArticles() {
+export function getAllArticles(topic) {
+    if(topic) {
+        return ncNewsAPI.get(`articles?topic=${topic}`)
+    }
     return ncNewsAPI.get('/articles')
 }
 
@@ -27,4 +30,8 @@ export function addNewComment(id, request) {
 
 export function deleteComment(id) {
     return ncNewsAPI.delete(`/comments/${id}`)
+}
+
+export function getAllTopics() {
+    return ncNewsAPI.get(`/topics`)
 }
