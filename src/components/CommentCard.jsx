@@ -4,7 +4,6 @@ import PopUp from './PopUpBox';
 
 function CommentCard({comment, handleDelete}) {
     const [open, setOpen] = useState(false);
-    const [selectedYes, setSelectedYes] = useState(false);
 
     return (
         <section className="comment-card">
@@ -19,8 +18,9 @@ function CommentCard({comment, handleDelete}) {
                     alt="delete button icon" 
                     onClick={() => setOpen(true)}/>
             : null}
+            <p className="author-on-comment">{comment.author}</p>
         </div>
-            <PopUp open={open} setOpen={setOpen} setSelectedYes={setSelectedYes} handleYes={() => handleDelete(comment.comment_id)}/>
+            <PopUp open={open} setOpen={setOpen} handleYes={() => handleDelete(comment.comment_id)}/>
         </section>
     )
 
