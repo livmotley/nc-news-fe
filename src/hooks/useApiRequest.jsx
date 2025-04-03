@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
     
-function useApiRequest(apiFunction, property, ...args) {    
+function useApiRequest(apiFunction, ...args) {    
     const [data, setData] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
@@ -11,7 +11,7 @@ function useApiRequest(apiFunction, property, ...args) {
         setIsError(false);
         apiFunction(...args)
         .then((response) => {
-            setData(response.data[property]);
+            setData(response.data);
             setIsLoading(false);
         })
         .catch(() => {

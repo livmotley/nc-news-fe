@@ -389,3 +389,33 @@ body {
   display: flex;
   justify-content: center;
 }
+
+/* .page-number {
+  position: relative;
+  display: block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  color: pink;
+  text-decoration: none;
+  background-color: white;
+  border: 1px solid #0d6efd;
+  border-radius: 5px;
+  margin: 2px;
+  text-decoration: none;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.page-bar {
+  display: flex;
+}
+
+.page-number:active {
+  z-index: 3;
+  color: white;
+  background: pink;
+  border-color: pink;
+}
+
+.page-buttons {
+  color: red;
+} */
