@@ -133,6 +133,7 @@ body {
   border-radius: 5px;
   font-size: 11px;
   align-self: center;
+  cursor: pointer;
 }
 
 .comment-header {
@@ -174,6 +175,12 @@ body {
   align-self: center;
   margin-bottom: 8px;
   margin-left: 10px;
+}
+
+.author-on-comment {
+  margin-left: auto;
+  align-self: center;
+  margin-right: 20px;
 }
 
 .comment-vote-button {
@@ -250,6 +257,7 @@ body {
   border: 3px solid rgb(60, 60, 60);
   color: white;
   font-size: 12px;
+  cursor: pointer;
 }
 
 .modal {
