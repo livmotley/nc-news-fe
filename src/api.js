@@ -12,6 +12,9 @@ export function getAllArticles(topic, sortOption, ascOrder, page) {
         params.set('topic', topic);
     }
     if(sortOption) {
+        if(sortOption === 'date') {
+            sortOption = 'created_at'
+        }
         params.set('sort_by', sortOption);
     }
     if(ascOrder) {
@@ -44,4 +47,8 @@ export function deleteComment(id) {
 
 export function getAllTopics() {
     return ncNewsAPI.get(`/topics`)
+}
+
+export function addNewArticle(request) {
+    return ncNewsAPI.post(`/articles`, request)
 }

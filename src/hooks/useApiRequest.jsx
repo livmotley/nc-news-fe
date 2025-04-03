@@ -11,6 +11,7 @@ function useApiRequest(apiFunction, ...args) {
         setIsError(false);
         apiFunction(...args)
         .then((response) => {
+            console.log(response.data)
             setData(response.data);
             setIsLoading(false);
         })
