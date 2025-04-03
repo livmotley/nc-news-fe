@@ -1,7 +1,6 @@
 import { Link, useSearchParams } from "react-router";
 
 function TopicCard({topic}) {
-    const [searchParams, setSearchParams] = useSearchParams();
 
     const topicTitle = topic.slug;
 

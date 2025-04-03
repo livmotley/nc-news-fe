@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-function ArticleCard({article, children}) {
+function ArticleCard({article}) {
 
     return (
             <article className="article-card">

@@ -4,7 +4,7 @@ import { getAllTopics } from "../api";
 import TopicCard from "./TopicCard";
 
 function Topics() {
-    const { data: topics, isLoading, isError } = useApiRequest(getAllTopics, 'topics');
+    const { data: {topics} = {}, isLoading, isError } = useApiRequest(getAllTopics);
     if(isLoading) return <p>Loading...</p>
     if(isError) return <p>Oh no! Something went wrong!</p>
 

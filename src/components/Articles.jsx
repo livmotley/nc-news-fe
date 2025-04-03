@@ -5,14 +5,16 @@ import useApiRequest from "../hooks/useApiRequest";
 import SortByButton from "./SortByButton";
 import ToggleSwitch from "./ToggleSwitch";
 import { useState } from "react";
+import PageNav from "./PageNav";
 
 function Articles() {
     const [ascOrder, setAscOrder] = useState('desc');
     const [searchParams] = useSearchParams();
     const selectedTopic = searchParams.get('topic');
     const selectedSortOption = searchParams.get('sort_by');
+    const [currentPage, setCurrentPage] = useState(1);
 
-    const { data: articles, isLoading, isError } = useApiRequest(getAllArticles, 'articles', selectedTopic || null, selectedSortOption || null, ascOrder === 'asc' ? 'asc' : 'desc');
+    const { data: {articles, total_count: totalArticles} = {}, isLoading, isError } = useApiRequest(getAllArticles, selectedTopic || null, selectedSortOption || null, ascOrder === 'asc' ? 'asc' : 'desc', currentPage);
 
     if(isLoading) return <p>Loading...</p>
     if(isError) return (
@@ -35,6 +37,7 @@ function Articles() {
                     return <ArticleCard key={article.article_id} article={article}/>
                 })}
             </section>
+            <PageNav currentPage={currentPage} setCurrentPage={setCurrentPage} total={totalArticles} />
         </main>
         
     )

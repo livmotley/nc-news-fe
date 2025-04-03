@@ -6,6 +6,7 @@ import VoteHandler from "./VoteHandler";
 import NewCommentForm from "./NewCommentForm";
 import { Link, useParams } from "react-router";
 import Popup from "reactjs-popup";
+import PageNav from "./PageNav";
 
 function SingleArticlePage() {
     const { article_id } = useParams();
@@ -14,15 +15,18 @@ function SingleArticlePage() {
     const [localComments, setLocalComments] = useState([]);
     const [deleteConfirmation, setDeleteConfirmation] = useState(false);
     const [commentCount, setCommentCount] = useState(0);
+    const [commentPage, setCommentPage] = useState(1);
 
-    const {data: article, isLoading: articleLoading, isError: articleError} = useApiRequest(getArticleById, 'article', article_id)
-    const {data: comments, isLoading: commentLoading, isError: commentError} = useApiRequest(getCommentsByArticle, 'comments', article_id);
+    const {data: {article} = {}, isLoading: articleLoading, isError: articleError} = useApiRequest(getArticleById, article_id)
+    const {data: {comments} = {}, isLoading: commentLoading, isError: commentError} = useApiRequest(getCommentsByArticle, article_id, commentPage);
 
     useEffect(() => {
         if(comments && comments.length > 0 && localComments.length <= comments.length) {
             setLocalComments(comments);
             setCommentCount(comments.length);}
     }, [comments])
+
+    const totalComments = localComments.length;
 
     function handleCommentButton() {
         setHasPosted(false);
@@ -78,6 +82,7 @@ function SingleArticlePage() {
             {localComments.map((comment) => {
                 return <CommentCard key={comment.comment_id} comment={comment} handleDelete={handleDelete}/>
             })}
+            {totalComments > 0 ? <PageNav currentPage={commentPage} setCurrentPage={setCommentPage} total={totalComments}/> : null}
         </section>
         </>
     )
