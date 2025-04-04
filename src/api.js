@@ -5,7 +5,7 @@ const ncNewsAPI = axios.create({
     timeout: 1000
 });
 
-export function getAllArticles(topic, sortOption, ascOrder, page) {
+export function getAllArticles(topic, sortOption, ascOrder, author, page) {
     const params = new URLSearchParams();
 
     if(topic) {
@@ -16,6 +16,9 @@ export function getAllArticles(topic, sortOption, ascOrder, page) {
             sortOption = 'created_at'
         }
         params.set('sort_by', sortOption);
+    }
+    if(author) {
+        params.set('author', author);
     }
     if(ascOrder) {
         params.set('order', 'asc');
@@ -50,6 +53,13 @@ export function getAllTopics() {
 }
 
 export function addNewArticle(request) {
-    console.log(request);
     return ncNewsAPI.post(`/articles`, request)
+}
+
+export function deleteArticleById(id) {
+    return ncNewsAPI.delete(`articles/${id}`)
+}
+
+export function getUserInfo(username) {
+    return ncNewsAPI.get(`users/${username}`)
 }

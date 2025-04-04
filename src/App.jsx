@@ -8,6 +8,7 @@ import NavBar from './components/NavBar.jsx';
 import SingleArticlePage from './components/SingleArticlePage.jsx';
 import Topics from './components/Topics.jsx';
 import NewArticleForm from './components/NewArticleForm.jsx';
+import UserProfile from './components/UserProfile.jsx';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/articles/:article_id/comments" element={<SingleArticlePage />} />
       <Route path="/topics" element={<Topics />} />
       <Route path='/articles/new-article' element={<NewArticleForm />} />
+      <Route path="/users/:username" element={<UserProfile />} />
     </Routes>
     <Footer />
     </>
