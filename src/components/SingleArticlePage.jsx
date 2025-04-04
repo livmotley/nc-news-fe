@@ -44,6 +44,9 @@ function SingleArticlePage() {
         setCommentCount(updatedComments.length);
         setDeleteConfirmation(true);
         deleteComment(commentId)
+        .then(() => {
+            getCommentsByArticle(article_id)
+        })
         .catch(() => {
             setLocalComments(comments);
             setDeleteConfirmation(false);

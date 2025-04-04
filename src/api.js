@@ -50,5 +50,6 @@ export function getAllTopics() {
 }
 
 export function addNewArticle(request) {
+    console.log(request);
     return ncNewsAPI.post(`/articles`, request)
 }
