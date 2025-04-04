@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { addNewArticle, getAllTopics } from "../api";
 import useApiRequest from "../hooks/useApiRequest";
-import { redirect, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 function NewArticleForm() {
     const [successfulPost, setSuccessfulPost] = useState(false);
@@ -45,25 +45,26 @@ function NewArticleForm() {
     return (
         <>
         <header>
-            <h2>Write Article</h2>
+            <h2 className="page-title">New Article</h2>
         </header>
         <main>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="new-article-form">
                 {missingField ? <em>Please fill in all fields</em> : null}
-                <label htmlFor="article-title">Title:</label>
+                <label className="form-labels" htmlFor="article-title">Title:</label>
                 <input
+                    className="article-input"
                     id="article-title"
                     name="title"
                     type="text"
                     value={articleInput.title}
                     onChange={handleChange}/>
-                <h4>Topic:</h4>
+                <h4 className="form-labels">Topic:</h4>
                 {Array.isArray(topics) && topics.length > 0 ? (
                 <ul>
                     {topics.map((topic) => {
                         return (
                             <li key={topic.slug}>
-                                <label htmlFor={`topic-${topic.slug}`}>{topic.slug}</label>
+                                <label className="topic-input" htmlFor={`topic-${topic.slug}`}>{topic.slug}</label>
                                 <input
                                     type="radio"
                                     id={`topic-${topic.slug}`} 
@@ -75,15 +76,17 @@ function NewArticleForm() {
                         )
                     })}
                 </ul> ): ( <p>No topics available</p>)}
-                <label htmlFor="article-body">Body:</label>
+                <label className="form-labels" htmlFor="article-body">Body:</label>
                 <textarea
+                    className="article-input"
                     id="article-body"
                     name="body"
                     type="text"
                     value={articleInput.body}
                     onChange={handleChange}/>
-                <label htmlFor="article-img-url">Image URL:</label>
+                <label className="form-labels" htmlFor="article-img-url">Image URL:</label>
                 <input
+                    className="article-input"
                     id="article-img-url"
                     name="article_img_url"
                     type="text"
