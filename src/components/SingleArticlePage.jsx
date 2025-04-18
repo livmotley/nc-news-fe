@@ -58,21 +58,6 @@ function SingleArticlePage() {
         })
     }
 
-    // const navigate = useNavigate();
-
-    // function handleArticleDelete() {
-    //     setArticleDeletionErr(false);
-    //     setArticleDeleted(true);
-    //     deleteArticleById(article_id)
-    //     .then(() => {
-    //         navigate(`/articles`);
-    //     })
-    //     .catch(() => {
-    //         setArticleDeleted(false);
-    //         setArticleDeletionErr(true);
-    //     })
-    // }
-
     if(articleLoading || commentLoading) return <p>Loading article...</p>
     if(articleError || commentError) return <p>Oh no! Something went wrong!</p>
 

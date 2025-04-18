@@ -2,15 +2,25 @@ body {
   box-sizing: border-box;
   max-width: 780px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  text-decoration: none;
+  /* text-decoration: none; */
+  background-image: url("./assets/desktop-1.jpg");
 }
 
 .header-link {
   text-decoration: none;
   color: inherit;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 16px;
+}
+
+.nc-news-logo {
+  width: 50px;
 }
 
 .app {
@@ -35,66 +45,8 @@ body {
   border: none;
   cursor: pointer;
   font-size: 10px;
-  margin-top: 10px;
   border-radius: 5px;
   text-decoration: none;
-}
-
-.article-gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.article-card {
-  width: 200px;
-  background: rgb(250, 231, 231);
-  border-radius: 7px;
-  margin: 10px;
-  text-decoration: none;
-  box-shadow: 0 3px 10px rgb(89, 74, 93);
-}
-
-.article-links {
-  margin: 7px;
-}
-
-.topic-button {
-  margin: 5px;
-  background: rgb(67, 67, 255);
-  color: white;
-  padding: 5px;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.author-button {
-  margin: 10px;
-  background: rgb(157, 157, 255);
-  color: rgb(0, 0, 0);
-  padding: 5px;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.article-interactions {
-  margin: 10px;
-  display: block;
-}
-
-.votes-button {
-  margin-right: 5px;
-  margin-bottom: 5px;
-  background: white;
-  border: 3px solid rgb(157, 157, 255);
-  border-radius: 5px;
-}
-
-.comment-button {
-  margin-bottom: 5px;
-  background: white;
-  border: 3px solid rgb(157, 157, 255);
-  border-radius: 5px;
 }
 
 .article-details {
@@ -474,7 +426,6 @@ button.buttons-and-links {
   border: none;
   cursor: pointer;
   font-size: 10px;
-  margin-top: 10px;
 }
 
 button.buttons-and-links:disabled {

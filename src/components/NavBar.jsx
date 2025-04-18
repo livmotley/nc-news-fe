@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import {slide as Menu} from "react-burger-menu";
-import '../unique css/NavBar.css';
+import '../unique-css/NavBar.css';
 
 function NavBar() {
     return (

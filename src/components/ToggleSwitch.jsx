@@ -1,4 +1,4 @@
-import '../unique css/ToggleSwitch.scss'
+import '../unique-css/ToggleSwitch.scss'
 
 function ToggleSwitch({ascOrder, setAscOrder}) {
 

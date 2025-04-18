@@ -36,7 +36,7 @@ function SortByButton() {
             </Dropdown.Toggle>
             <Dropdown.Menu className="sort-menu">
                 <Dropdown.Item className="sort-option" onClick={() => handleSort(null)} >Remove Sorting</Dropdown.Item>
-                <Dropdown.Item className="sort-option" onClick={() => handleSort('date')} >Date</Dropdown.Item>
+                <Dropdown.Item className="sort-option" onClick={() => handleSort('created_at')} >Date</Dropdown.Item>
                 <Dropdown.Item className="sort-option" onClick={() => handleSort('comment_count')} >Comments</Dropdown.Item>
                 <Dropdown.Item className="sort-option" onClick={() => handleSort('votes')} >Votes</Dropdown.Item>
             </Dropdown.Menu>

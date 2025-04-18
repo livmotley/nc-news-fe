@@ -6,6 +6,7 @@ import SortByButton from "./SortByButton";
 import ToggleSwitch from "./ToggleSwitch";
 import { useState } from "react";
 import PageNav from "./PageNav";
+import "../unique-css/ArticleCard.css"
 
 function Articles() {
     const [ascOrder, setAscOrder] = useState('desc');

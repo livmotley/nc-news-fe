@@ -1,11 +1,10 @@
 import { Link } from "react-router";
+import logo from "../assets/nc-news-logo.png";
 
 function Header() {
     return (
-        <header>
-            <h1 className="header">
-                <Link to="/articles" className="header-link">NC News</Link>
-            </h1>
+        <header className="logo-container">
+            <Link to="/articles"><img src={logo} className="nc-news-logo" alt="nc news logo"/></Link>
         </header>
     );
 }
