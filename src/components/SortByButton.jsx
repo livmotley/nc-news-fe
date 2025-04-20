@@ -4,29 +4,33 @@ import { useSearchParams } from 'react-router';
 function SortByButton() {
     const [searchParams, setSearchParams] = useSearchParams();
     const sortBy = searchParams.get('sort_by');
+    const order = searchParams.get('order');
 
     function sortButtonLabel() {
-        switch (sortBy) {
-            case 'date':
-                return 'Sort: Date';
-            case 'votes':
-                return 'Sort: Votes';
-            case 'comment_count':
-                return 'Sort: Comments';
-            default:
-                return 'Sort & Filter';
+        if(!sortBy) {
+             return 'Sort & Filter';
         }
+
+        const labelMap = {
+            created_at: 'Date',
+            votes: 'Votes',
+            comment_count: 'Comments'
+        };
+
+        return `Sort: ${labelMap[sortBy]}`;
     }
     
-    function handleSort(sortOption) {
-        searchParams.delete('sort_by');
+    function handleSort(sortOption, sortOrder) {
+        const newParams = new URLSearchParams(searchParams);
 
-        if(sortOption === null) {
-            searchParams.delete('sort_by');
+        if(!sortOption) {
+            newParams.delete('sort_by');
+            newParams.delete('order');
         } else {
-            searchParams.set('sort_by', sortOption);
+            newParams.set('sort_by', sortOption);
+            newParams.set('order', sortOrder);
         }
-        setSearchParams(searchParams);
+        setSearchParams(newParams);
     }
 
       return (
@@ -35,10 +39,13 @@ function SortByButton() {
                 {sortButtonLabel()}
             </Dropdown.Toggle>
             <Dropdown.Menu className="sort-menu">
-                <Dropdown.Item className="sort-option" onClick={() => handleSort(null)} >Remove Sorting</Dropdown.Item>
-                <Dropdown.Item className="sort-option" onClick={() => handleSort('created_at')} >Date</Dropdown.Item>
-                <Dropdown.Item className="sort-option" onClick={() => handleSort('comment_count')} >Comments</Dropdown.Item>
-                <Dropdown.Item className="sort-option" onClick={() => handleSort('votes')} >Votes</Dropdown.Item>
+                <Dropdown.Item className="sort-option" onClick={() => handleSort(null, null)} >Remove Sorting</Dropdown.Item>
+                <Dropdown.Item className="sort-option" onClick={() => handleSort('created_at', 'desc')} >Date: Latest First</Dropdown.Item>
+                <Dropdown.Item className="sort-option" onClick={() => handleSort('created_at', 'asc')} >Date: Oldest First</Dropdown.Item>
+                <Dropdown.Item className="sort-option" onClick={() => handleSort('comment_count', 'desc')} >Comments: Most to Least</Dropdown.Item>
+                <Dropdown.Item className="sort-option" onClick={() => handleSort('comment_count', 'asc')} >Comments: Least to Most</Dropdown.Item>
+                <Dropdown.Item className="sort-option" onClick={() => handleSort('votes', 'desc')} >Votes: Most to Least</Dropdown.Item>
+                <Dropdown.Item className="sort-option" onClick={() => handleSort('votes', 'asc')} >Votes: Least to Most</Dropdown.Item>
             </Dropdown.Menu>
         </Dropdown>
       );

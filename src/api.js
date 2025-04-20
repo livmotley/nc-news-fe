@@ -12,19 +12,17 @@ export function getAllArticles(topic, sortOption, ascOrder, author, page) {
         params.set('topic', topic);
     }
     if(sortOption) {
-        if(sortOption === 'date') {
-            sortOption = 'created_at'
-        }
         params.set('sort_by', sortOption);
+    }
+    if(ascOrder) {
+        params.set('order', ascOrder);
     }
     if(author) {
         params.set('author', author);
     }
-    if(ascOrder) {
-        params.set('order', 'asc');
-    }
     params.set('limit', 10);
     params.set('p', page);
+
     return ncNewsAPI.get(`/articles?${params.toString()}`)
 }
 

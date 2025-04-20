@@ -4,7 +4,8 @@ body {
   margin: 0 auto;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   /* text-decoration: none; */
-  background-image: url("./assets/desktop-1.jpg");
+  background: rgb(246, 246, 246);
+  /* background-image: url("./assets/desktop-1.jpg"); */
 }
 
 .header-link {
@@ -49,6 +50,22 @@ body {
   text-decoration: none;
 }
 
+.article-meta-data-container {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.article-header {
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 .article-details {
   justify-content: center;
   max-height: 300px;
@@ -59,12 +76,14 @@ body {
   color: inherit;
 }
 
-.article-image {
+.article-image-single {
   border-radius: 10px;
-  height: 80%;
-  width: 80%;
+  height: 280px;
+  width: 90%;
   object-fit: cover;
-  justify-content: center;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 10px;
 }
 
 .article-topic-button {
@@ -73,13 +92,46 @@ body {
   color: rgb(32, 32, 32);
   padding: 5px;
   border-radius: 5px;
-  text-align: left;
-  width: 78%;
-  display: inline-block;
+  width: auto;
+}
+
+.body-container {
+  display: flex;
+  gap: 15px;
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+  align-items: flex-start;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.body-container > *:first-child {
+  flex: 1;
+}
+
+.body-container > *:last-child {
+  flex: 4;
+}
+
+.vote-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0 auto;
+  align-items: center;
 }
 
 .article-body {
   text-align: left;
+  margin-top: 0px;
+}
+
+.comment-container {
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  width: 90%;
 }
 
 .comment-intro {
@@ -93,6 +145,8 @@ body {
   color: white;
   border: none;
   padding: 5px;
+  padding-left: 7px;
+  padding-right: 7px;
   border-radius: 5px;
   font-size: 11px;
   align-self: center;
@@ -107,9 +161,9 @@ body {
 }
 
 .comment-card {
-  background: rgb(238, 238, 238);
+  background: rgb(255, 255, 255);
   border-radius: 10px;
-  border: 3px solid rgb(157, 157, 255);
+  border: 3px solid rgb(255, 255, 255);
   margin-bottom: 10px;
 }
 
@@ -159,16 +213,14 @@ body {
 .vote-count {
   display: inline-block;
   padding: 3px;
-  margin-top: 5px;
-  margin-right: 5px;
-  margin-bottom: 5px;
-  background: white;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
   white-space: nowrap;
   font-weight: bold;
+  text-align: center;
 }
 
 .upvote-button {
-  margin-right: 5px;
   background: rgb(169, 255, 169);
   border: 2.5px solid rgb(99, 153, 99);
   border-radius: 4px;
@@ -176,6 +228,8 @@ body {
   padding-bottom: 0.5em;
   font-size: 80%;
   font-weight: 400;
+  width: 50px;
+  display: inline-block;
 }
 
 .downvote-button {
@@ -185,7 +239,8 @@ body {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   font-size: 80%;
-  font-weight: 400
+  font-weight: 400;
+  width: 50px;
 }
 
 .new-comment-input {
