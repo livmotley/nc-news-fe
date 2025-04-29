@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
-import { deleteArticleById, deleteComment, getAllArticles, getArticleById, getCommentsByArticle } from "../api";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { deleteComment, getArticleById, getCommentsByArticle } from "../api";
 import CommentCard from "./CommentCard";
 import useApiRequest from "../hooks/useApiRequest";
 import VoteHandler from "./VoteHandler";
 import NewCommentForm from "./NewCommentForm";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useLocation, useParams } from "react-router";
 import Popup from "reactjs-popup";
-import PageNav from "./PageNav";
 import PopUp from "./PopUpBox";
 
 function SingleArticlePage() {
     const { article_id } = useParams();
+    const location = useLocation();
+    const commentSectionRef = useRef(null);
     const [newComment, setNewComment] = useState(false);
     const [hasPosted, setHasPosted] = useState(false);
     const [localComments, setLocalComments] = useState([]);
@@ -18,9 +19,22 @@ function SingleArticlePage() {
     const [commentCount, setCommentCount] = useState(0);
     const [commentPage, setCommentPage] = useState(1);
     const [open, setOpen] = useState(false);
+    const [hasAttemptedScroll, setHasAttemptedScroll] = useState(false);
 
     const {data: {article} = {}, isLoading: articleLoading, isError: articleError} = useApiRequest(getArticleById, article_id)
     const {data: {comments} = {}, isLoading: commentLoading, isError: commentError} = useApiRequest(getCommentsByArticle, article_id, commentPage);
+
+    const scrollToComments = useCallback(() => {
+        if(commentSectionRef.current) {
+            commentSectionRef.current.scrollIntoView({behavior: 'smooth', block: 'start'});
+
+            const yOffset = commentSectionRef.current.getBoundingClientRect().top + window.pageYOffset - 20;
+            window.scrollTo({
+                top: yOffset,
+                behavior: 'smooth'
+            });
+        }
+    }, [commentSectionRef]);
 
     useEffect(() => {
         if(comments && comments.length > 0 && localComments.length <= comments.length) {
@@ -28,7 +42,19 @@ function SingleArticlePage() {
             setCommentCount(comments.length);}
     }, [comments])
 
-    const totalComments = localComments.length;
+    useEffect(() => {
+        const shouldScrollToComments = location.state?.scrollToComments;
+
+        if(shouldScrollToComments && !articleLoading && !commentLoading && comments?.length > 0 && !hasAttemptedScroll) {
+            setHasAttemptedScroll(true);
+
+            setTimeout(scrollToComments, 300);
+
+            setTimeout(scrollToComments, 800);
+
+            setTimeout(scrollToComments, 1500);
+        }
+    }, [location.state, articleLoading, commentLoading, comments, hasAttemptedScroll, scrollToComments]);
 
     function handleCommentButton() {
         setHasPosted(false);
@@ -75,7 +101,7 @@ function SingleArticlePage() {
                     <VoteHandler article={article}/>
                     {article.body ? <p className='article-body'>{article.body}</p> : <p>Looks like this article is empty!</p>}
                 </div>
-            <section className='comment-container'>
+            <section id="comments" ref={commentSectionRef} className='comment-container' style={{scrollMarginTop: '20px'}}>
                 <header className="comment-intro">
                     <h4 className="comment-header">COMMENTS: {commentCount}</h4>
                     <button className="add-comment-button" onClick={handleCommentButton}>Add Comment</button>
@@ -91,7 +117,6 @@ function SingleArticlePage() {
                 {localComments.map((comment) => {
                     return <CommentCard key={comment.comment_id} comment={comment} handleDelete={handleDelete}/>
                 })}
-                {totalComments > 0 ? <PageNav currentPage={commentPage} setCurrentPage={setCommentPage} total={totalComments}/> : null}
             </section>
             </>
         )

@@ -1,22 +1,43 @@
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import useApiRequest from "../hooks/useApiRequest";
 import { getAllTopics } from "../api";
 import TopicCard from "./TopicCard";
+import "../unique-css/Topics.css";
+import TopicSort from "./TopicSort";
 
 function Topics() {
     const { data: {topics} = {}, isLoading, isError } = useApiRequest(getAllTopics);
-    if(isLoading) return <p>Loading...</p>
-    if(isError) return <p>Oh no! Something went wrong!</p>
+    const [searchParams] = useSearchParams();
+    const sortBy = searchParams.get('sort_by');
+    const order = searchParams.get('order');
+
+    if(isLoading) return <p className="loading-container">Loading...</p>
+    if(isError) return <p className="error-container">Oh no! Something went wrong!</p>
+
+    let sortedTopics = [...topics];
+    
+    if(sortBy === 'slug') {
+        sortedTopics.sort((a, b) => {
+            if (order === 'asc') {
+                return a.slug.localeCompare(b.slug);
+            } else if (order === 'desc') {
+                return b.slug.localeCompare(a.slug);
+            } else {
+                return 0;
+            }
+        });
+    }
 
     return (
         <main className="topics-page">
-            <h2>Browse Topics</h2>
-            <div className="topic-button-container">
-                <Link to="topics/new-topic"><button className="buttons-and-links">Add New Topic</button></Link>
-                <button className="buttons-and-links">Sort</button>
+            <div className="topics-header">
+                <h2>Browse Topics</h2>
+                <div className="topic-actions">
+                    <TopicSort/>
+                </div>
             </div>
             <section className="topics-gallery">
-                {topics.map((topic) => {
+                {sortedTopics.map((topic) => {
                     return <TopicCard key={topic.slug} topic={topic}/>
                 })}
             </section>

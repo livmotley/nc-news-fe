@@ -12,20 +12,24 @@ import UserProfile from './components/UserProfile.jsx';
 
 function App() {
   return (
-    <>
-      <NavBar />
-      <Header />
-    <Routes>
-      <Route path="/" element={<WelcomePage/>} />
-      <Route path="/articles" element={<Articles/>} />
-      <Route path="/articles/:article_id" element={<SingleArticlePage />} />
-      <Route path="/articles/:article_id/comments" element={<SingleArticlePage />} />
-      <Route path="/topics" element={<Topics />} />
-      <Route path='/articles/new-article' element={<NewArticleForm />} />
-      <Route path="/users/:username" element={<UserProfile />} />
-    </Routes>
-    <Footer />
-    </>
+    <div className="app-container">
+        <NavBar />
+        <Header />
+        <div className="content-wrapper">
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={<WelcomePage/>} />
+              <Route path="/articles" element={<Articles/>} />
+              <Route path="/articles/:article_id" element={<SingleArticlePage />} />
+              <Route path="/articles/:article_id/comments" element={<SingleArticlePage />} />
+              <Route path="/topics" element={<Topics />} />
+              <Route path='/articles/new-article' element={<NewArticleForm />} />
+              <Route path="/users/:username" element={<UserProfile />} />
+            </Routes>
+          </main>
+        </div>
+        <Footer />
+    </div>
   )
 }
 

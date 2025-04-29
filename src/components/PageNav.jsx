@@ -1,3 +1,5 @@
+import { ArrowLeft, ArrowRight } from "lucide-react";
+
 function PageNav({currentPage, setCurrentPage, total}) {
 
   function handlePageSelection(event) {
@@ -7,13 +9,21 @@ function PageNav({currentPage, setCurrentPage, total}) {
   return (
     <section className='page-bar'>
       <button 
-        value={'previous'} 
+        value={'previous'}
+        className="pagination-button"
         onClick={currentPage > 1 ? handlePageSelection : null}
-        disabled={currentPage <= 1}>Go Back</button>
+        disabled={currentPage <= 1}>
+          <ArrowLeft size={16}/>
+          Go Back
+      </button>
       <button 
-        value={'next'} 
+        value={'next'}
+        className="pagination-button"
         onClick={currentPage < Math.ceil(total / 10) ? handlePageSelection : null}
-        disabled={currentPage >= Math.ceil(total / 10)}>Next Page</button>
+        disabled={currentPage >= Math.ceil(total / 10)}>
+          Next Page
+          <ArrowRight size={16}/>
+      </button>
     </section>
   )
 }

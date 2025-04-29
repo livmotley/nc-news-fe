@@ -35,25 +35,17 @@ function ArticleCard({article}) {
                         <ThumbsUp size={16}/>
                         <span>{article.votes} votes</span>
                     </button>
-                    <button className ="comment-button">
+                    <Link 
+                        to={`/articles/${article.article_id}`} 
+                        state={{scrollToComments: true}}
+                        className="comment-button">
                         <MessageCircle size={16}/>
                         <span>{article.comment_count} comments</span>
-                    </button>
+                    </Link>
                 </section>
             </div>
         </article>
     )
-    // return (
-    //         <article className="article-card">
-                
-                
-    //             <section className="article-interactions">
-    //                 <button className='votes-button'>{article.votes} votes</button>
-    //                 <button className='comment-button'>{article.comment_count} comments</button>
-    //             </section>
-    //         </article>
-
-    // )
 }
 
 export default ArticleCard;

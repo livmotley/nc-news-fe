@@ -1,31 +1,41 @@
 import { Link, useParams } from "react-router";
 import useApiRequest from "../hooks/useApiRequest";
 import { getUserInfo } from "../api";
+import "../unique-css/UserProfile.css";
+import defaultAvatar from "../assets/default-avatar.png";
 
 function UserProfile() {
     const params = useParams();
 
     const {data: {user} = {}, isLoading, isError} = useApiRequest(getUserInfo, params.username);
 
-    if(isLoading) return <p>Loading...</p>
-    if(isError) return <p>Oh no! Something went wrong!</p>
+    if(isLoading) return <p className="loading-container">Loading...</p>
+    if(isError) return <p className="error-container">Oh no! Something went wrong!</p>
 
     return (
-        <>
-        <header>
-            <h3 className="user-profile-header">My Profile</h3>
-        </header>
-        <main>
-            <img className="profile-picture" src={user.avatar_url} alt={`${user.username} profile picture`}/>
-            <div className="user-names">
-                <h4 className='user-name'>{user.name}</h4>
-                <h4 className='user-name'>{user.username}</h4>
+        <div className="profile=container">
+            <div className="profile-image-container">
+                <img 
+                    src={defaultAvatar}
+                    alt={`${user.username} profile picture`}
+                    className="profile-image"
+                    />
             </div>
-            <section>
-                <Link to='/articles/new-article' className="buttons-and-links">Post Article</Link>
-            </section>
-        </main>
-        </>
+            <div className="profile-card">
+                <div className="profile-content">
+                    <h2 className="profile-name">
+                        {user.name}
+                    </h2>
+                    <p className="profile-username">
+                        @{user.username}
+                    </p>
+                    <div className="profile-actions">
+                        <Link to="/articles/new-article" className="profile-button">
+                        Post Article</Link>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }
 
