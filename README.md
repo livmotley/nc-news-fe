@@ -1,5 +1,5 @@
 # Deployed Version
-- View the app at: nc-news-fe-livmotley.netlify.app/articles
+- View the app at: [nc-news-fe-livmotley.netlify.app/articles]
 
 # About NC News
 - NC News is a full-stack project. The project firstly comprised of building the API which manipulated data around articles, topics, users and comments to deliver certain content for various endpoints and HTTP methods. The second part built the front end architecture around those end points to deliver a user-friendly and interactive platform.
